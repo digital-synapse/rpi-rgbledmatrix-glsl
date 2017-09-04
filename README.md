@@ -1,16 +1,20 @@
-Hardware accelerated graphics on RGB LED display with Raspberry Pi GPIO
+Hardware accelerated graphics on RGB LED display with OpenGL and the Raspberry Pi GPIO
 =====
-A glsl ES 1.2 shader rendering engine based on the excellent rpi-rgb-led-matrix library. 
+A GLSL ES 1.2 shader rendering engine based on the excellent rpi-rgb-led-matrix library. 
 
-##Setup
+[![Rings Demo](http://i.imgur.com/bT9bxltm.png)](https://youtu.be/KcxGaBQGMv4 "Rings Demo")
+[![Fire Demo](https://i.imgur.com/S7eQXKKm.png)](https://youtu.be/B6gl0P_Xw4Y "Fire Demo")
+[![Lightning2 Demo](http://i.imgur.com/8GKdwHJm.png)](https://youtu.be/Bzn-x0ncxcU "Lightning2 Demo")
+[![Lightning Demo](http://i.imgur.com/CjdX3RPm.png)](https://youtu.be/ZzeQzPtST1I "Lightning Demo")
+
+## Setup
 This project is based on mono/C# and has been tested on Raspbian Stretch. 
 You will want to make sure you install the full raspbian image with x-server not the lite version.
 After installing the raspbian strech image you need to enable OpenGL in raspi-config (Advanced Menu).
 ```
 $ sudo raspi-config
 ```
-Next, the rpi-rgb-led-matrix library uses the PWM chip on the pi for timing so you will want to disable 
-sound in /boot/config.txt. comment or remove the line dtparam=audio=on to disable the audio
+Next, the rpi-rgb-led-matrix library uses the PWM chip on the pi for timing which is also used for sound on the raspberry PI, since having sound enabled may interfere with the PWM you should disable sound for the best results. You can disable sound in /boot/config.txt. comment or remove the line dtparam=audio=on to disable the audio
 ```
 $ sudo nano /boot.config.txt
 ```
@@ -28,13 +32,14 @@ You can now run the shader engine via:
 sudo mono rpi-rgbledmatrix-glsl.exe
 ```
 
-###Notes
-If you are running your raspberry pi headless without an hdmi display and using ssh to login, you need to set the default display manually on the terminal.
+### Notes
+If you are running your raspberry pi headless without an hdmi display and using ssh to login, you may need to set the default display manually on the terminal first before running your shaders.
 ```
-DISPLAY=:0
+export DISPLAY=:0
+export XAUTHORITY=~/.Xauthority
 ```
 
-###Hardware
+### Hardware
 The details of connecting a RGB LED matrix to the raspberry PI GPIO are covered in the [rpi-rgb-led-matrix github page.](https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/wiring.md) 
 
 ### Changing parameters via command-line flags
@@ -60,6 +65,8 @@ These flags allow you to define the total width and height of your display in pi
 --display-width: Default 32
 --display-height: Default 32
 ```
+
+### LED Matrix display parameters and command-line flags
 
 For the most part, all of the command line flags supported in the rpi-rgb-led-matrix
 are also supported the the GLSL shader renderer so that you don't have to re-compile 
