@@ -9,7 +9,7 @@ src=				Program.cs \
 					ShaderRendererCore.cs \
 					WindowRenderer.cs
 					
-exe=				../glshader-test.exe
+exe=				../rpi-rgbledmatrix-glsl.exe
 
 all: $(exe) 
 		
