@@ -33,10 +33,14 @@ sudo mono rpi-rgbledmatrix-glsl.exe
 ```
 
 ### Notes
-If you are running your raspberry pi headless without an hdmi display and using ssh to login, you may need to set the default display manually on the terminal first before running your shaders.
+If you are running your raspberry pi headless without an hdmi display and using ssh to login, you may need to set the default display manually on the terminal first before running your shaders. If you want to run this display at startup, it may be useful to write a short shell script to do this for you. Example:
 ```
+#!/bin/bash
+
 export DISPLAY=:0
 export XAUTHORITY=~/.Xauthority
+
+sudo mono rpi-rgbledmatrix-glsl.exe -s -w 64 -h 32 -c 2
 ```
 
 ### Hardware
